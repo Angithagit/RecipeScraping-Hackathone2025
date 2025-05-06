@@ -6,11 +6,12 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 
 import Commons.BrowserFactory;
-import PageFactory.RecipeCategories;
+import PageFactory.CategoriesScrapper;
 import dto.CategoryInfo;
 
 public class CategoryScrapper {
 	public static void main(String[] args) throws IOException {
+		// CsvWriterUtil.initialize("recipes.csv");
 		BrowserFactory bf = new BrowserFactory();
 		bf.browsersetup("chrome");
 
@@ -18,9 +19,11 @@ public class CategoryScrapper {
 
 		driver.get("https://www.tarladalal.com/recipe-category/");
 
-		RecipeCategories recipeCategories = new RecipeCategories();
+		CategoriesScrapper recipeCategories = new CategoriesScrapper();
 
 		Map<Integer, CategoryInfo> categoryMap = recipeCategories.scrapeRecipeCategories();
+		
+		
 		for (Map.Entry<Integer, CategoryInfo> entry : categoryMap.entrySet()) {
 			Integer categoryId = entry.getKey();
 			CategoryInfo info = entry.getValue();
@@ -29,7 +32,10 @@ public class CategoryScrapper {
 			System.out.println("Category URL  : " + info.getUrl());
 			System.out.println("Recipe Count  : " + info.getRecipeCount());
 			System.out.println("-------------------------------------------");
+			
+			RecipeScrapper.recipeDataInfo(categoryId, info.getUrl());
 		}
+		// CsvWriterUtil.close();
 		driver.quit();
 	}
 }
