@@ -12,10 +12,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelReader {
 	String [] [] ingredient = new String [100] [100];
-	ArrayList<String> retreiveditem = new ArrayList<String>();
+	String retreiveditem;
 	int i = 0,j=0;
 
-public ArrayList<String> readExcelSheet(int rowvalue, int colvalue, String sheetname) throws IOException {
+public String readExcelSheet(int rowvalue, int colvalue, String sheetname) throws IOException {
 	
 		String path = System.getProperty("user.dir")+"/src/test/resources/testdata/IngredientsAndComorbidities-ScrapperHackathon.xlsx";
 		File Excelfile = new File(path);
@@ -39,34 +39,46 @@ public ArrayList<String> readExcelSheet(int rowvalue, int colvalue, String sheet
 			}
 		}
 		workbook.close();
-		retreiveditem.add(ingredient[rowvalue][colvalue]);
+		retreiveditem = ingredient[rowvalue][colvalue];
 		return retreiveditem;
 	}
+public int readlastrowindex(int rowvalue, int colvalue, String sheetname) throws IOException {
+	
+//	System.out.println("Sheetname is:"+sheetname);
+	String path = System.getProperty("user.dir")+"/src/test/resources/testdata/IngredientsAndComorbidities-ScrapperHackathon.xlsx";
+	File Excelfile = new File(path);
+	
+	FileInputStream Fis = new FileInputStream(Excelfile);
+	XSSFWorkbook workbook = new XSSFWorkbook(Fis);
+	XSSFSheet sheet = workbook.getSheet(sheetname);
+	
+	Iterator<Row> row = sheet.rowIterator();
+	
+	while(row.hasNext()) {
+		
+		Row currRow = row.next();
+		Iterator<Cell> cell = currRow.cellIterator();
+		
+		while(cell.hasNext()) {
+			Cell currCell = cell.next();
+			i=currCell.getRowIndex();
+			j=currCell.getColumnIndex();				
+			ingredient[i][j] = currCell.getStringCellValue();
+		}
+	}
+	workbook.close();
+	while(ingredient[i][colvalue].length() ==0) {
+		i=i-1;
+	}
+	
+	return i;
+}
 
-public ArrayList<String> LFV_checklist(int rownumber,int columnnumber) throws IOException {	
-	ArrayList<String> checkitem = new ArrayList<String>();
-	String sheetname = "Final list for LFV Elimination";
+public String readexcelvalue(int rownumber,int columnnumber, String sheetname) throws IOException {	
+	String checkitem;
 	checkitem = readExcelSheet(rownumber, columnnumber, sheetname);
-	LoggerLoad.info("Ingredient check on:"+checkitem);
 	return checkitem;	
 }
-
-public ArrayList<String> LCHF_checklist(int rownumber,int columnnumber) throws IOException {
-	ArrayList<String> checkitem = new ArrayList<String>();	
-	String sheetname = "Final list for LCHFElimination";
-	checkitem = readExcelSheet(rownumber, columnnumber, sheetname);
-	LoggerLoad.info("Ingredient check on:"+checkitem);
-	return checkitem;
-}
-
-public ArrayList<String> Allergy_list(int rownumber,int columnnumber) throws IOException {
-	ArrayList<String> checkitem = new ArrayList<String>();	
-	String sheetname = "Filter -1 Allergies - Bonus Poi";
-	checkitem = readExcelSheet(rownumber, columnnumber, sheetname);
-	LoggerLoad.info("Ingredient check on:"+checkitem);
-	return checkitem;
-}
-
 
 
 }
