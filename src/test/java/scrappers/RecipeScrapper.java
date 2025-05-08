@@ -6,6 +6,7 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 
 import Commons.BrowserFactory;
+import Commons.ConfigReader;
 import Commons.CsvWriterUtil;
 import PageFactory.RecipesScrapper;
 import dto.RecipeUrlInfo;
@@ -18,7 +19,7 @@ public class RecipeScrapper {
 
 		WebDriver driver = BrowserFactory.getdriverinstance();
 
-		driver.get("https://www.tarladalal.com/recipes/category/Vitamin-B12-Cobalamin-Rich-Foods/");
+		driver.get(ConfigReader.indianRecipeUrl());
 
 		RecipesScrapper recipesScrapper = new RecipesScrapper();
 
@@ -27,12 +28,14 @@ public class RecipeScrapper {
 			Integer recipeId = entry.getKey();
 			RecipeUrlInfo info = entry.getValue();
 
-			System.out.println("Recipe ID   : " + recipeId);
-			System.out.println("Recipe Name  : " + info.getRecipeName());
+//			System.out.println("Recipe ID   : " + recipeId);
+//			System.out.println("Recipe Name  : " + info.getRecipeName());
 			System.out.println("Recipe URL  : " + info.getUrl());
 			System.out.println("-------------------------------------------");
 		}
-		driver.quit();
+		
+		
+//		driver.quit();
 	}
 
 	public static void recipeDataInfo(Integer categoryId, String url) throws IOException {
@@ -40,7 +43,7 @@ public class RecipeScrapper {
 		WebDriver driver = BrowserFactory.getdriverinstance();
 
 //		driver.get("https://www.tarladalal.com/recipes/category/Vitamin-B12-Cobalamin-Rich-Foods/");
-		driver.get(url);
+		driver.get(ConfigReader.indianRecipeUrl());
 
 		RecipesScrapper recipesScrapper = new RecipesScrapper();
 
@@ -48,11 +51,10 @@ public class RecipeScrapper {
 		for (Map.Entry<Integer, RecipeUrlInfo> entry : recipeMap.entrySet()) {
 			Integer recipeId = entry.getKey();
 			RecipeUrlInfo info = entry.getValue();
-
-			System.out.println("Recipe ID   : " + recipeId);
-			System.out.println("Recipe Name  : " + info.getRecipeName());
+//			System.out.println("Recipe ID   : " + recipeId);
+//			System.out.println("Recipe Name  : " + info.getRecipeName());
 			System.out.println("Recipe URL  : " + info.getUrl());
-			System.out.println("-------------------------------------------");
+//			System.out.println("-------------------------------------------");
 			// CsvWriterUtil.writeRow(categoryId, info.getUrl(), recipeId, info.getRecipeName(), info.getUrl());
 		}
 	}
