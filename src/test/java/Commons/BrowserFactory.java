@@ -13,7 +13,6 @@ public class BrowserFactory {
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
 	public WebDriver browsersetup(String browsername) throws IOException {
-		LoggerLoad.info("Loading Browser:" + browsername);
 		if (browsername.equalsIgnoreCase("Chrome")) {
 			driver.set(new ChromeDriver());
 		} else if (browsername.equalsIgnoreCase("Edge")) {
