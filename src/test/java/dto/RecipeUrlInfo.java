@@ -6,7 +6,7 @@ public class RecipeUrlInfo {
 	private String recipeName;
 	private int recipeId;
 
-	public RecipeUrlInfo(int recipeId,String url, String recipeName) {
+	public RecipeUrlInfo(int recipeId, String url, String recipeName) {
 		this.url = url;
 		this.recipeId = recipeId;
 		this.recipeName = recipeName;

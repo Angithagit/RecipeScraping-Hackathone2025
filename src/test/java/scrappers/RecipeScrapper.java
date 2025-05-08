@@ -10,6 +10,7 @@ import Commons.ConfigReader;
 import Commons.CsvWriterUtil;
 import PageFactory.RecipesScrapper;
 import dto.RecipeUrlInfo;
+import tests.SampleGetAllDetails;
 
 public class RecipeScrapper {
 
@@ -34,12 +35,13 @@ public class RecipeScrapper {
 			System.out.println("-------------------------------------------");
 		}
 		
-		
 //		driver.quit();
 	}
 
 	public static void recipeDataInfo(Integer categoryId, String url) throws IOException {
 
+		BrowserFactory bf = new BrowserFactory();
+		bf.browsersetup("chrome");
 		WebDriver driver = BrowserFactory.getdriverinstance();
 
 //		driver.get("https://www.tarladalal.com/recipes/category/Vitamin-B12-Cobalamin-Rich-Foods/");
@@ -57,5 +59,6 @@ public class RecipeScrapper {
 //			System.out.println("-------------------------------------------");
 			// CsvWriterUtil.writeRow(categoryId, info.getUrl(), recipeId, info.getRecipeName(), info.getUrl());
 		}
+		SampleGetAllDetails.scrapeRecipeData(driver, recipeMap);
 	}
 }

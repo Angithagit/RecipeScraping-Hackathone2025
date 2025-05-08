@@ -22,4 +22,5 @@ public class ConfigReader {
 		prop.load(BrowserFactory.class.getClassLoader().getResourceAsStream("configuration.properties"));
 		return prop.getProperty("southIndianUrl");
 	}
+
 }
