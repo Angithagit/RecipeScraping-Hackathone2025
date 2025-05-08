@@ -1,4 +1,4 @@
-package Scrapper;
+package scrappers;
 
 import java.io.IOException;
 

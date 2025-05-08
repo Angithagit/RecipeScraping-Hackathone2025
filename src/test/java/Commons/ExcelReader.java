@@ -44,7 +44,6 @@ public String readExcelSheet(int rowvalue, int colvalue, String sheetname) throw
 	}
 public int readlastrowindex(int rowvalue, int colvalue, String sheetname) throws IOException {
 	
-//	System.out.println("Sheetname is:"+sheetname);
 	String path = System.getProperty("user.dir")+"/src/test/resources/testdata/IngredientsAndComorbidities-ScrapperHackathon.xlsx";
 	File Excelfile = new File(path);
 	
