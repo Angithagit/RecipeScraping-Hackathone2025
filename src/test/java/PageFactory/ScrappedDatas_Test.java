@@ -1,6 +1,8 @@
 package PageFactory;
 import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -148,15 +150,29 @@ public class ScrappedDatas_Test {
           }
     }
 
-    // Launch the URL
-    public static void launchUrl() {
-        driver.get("https://m.tarladalal.com");
+    @FindBy(xpath = "//div[@id='ingredients']//p")
+    private List<WebElement> ingredients;
+ public List<String> getIngredients() {
+    return ingredients.stream()
+            .map(WebElement::getText)
+            .map(String::trim)
+            .filter(s -> !s.isEmpty())
+            .collect(Collectors.toList());
+ }
+  @FindBy(xpath="//div[contains(@class,'box-time')][1]/div/p/strong")
+    private WebElement preparationtime;
+ public String getPreparationTime() {
+             return preparationtime.getText();
     }
-
-    // Close the browser after the test
-    @AfterClass
-    public void tearDown() {
-        driver.quit();
+    @FindBy(xpath="//div[contains(@class,'box-time')][2]/div/p/strong")
+    private WebElement cookingtime;
+ public String getCookingTime() {
+             return cookingtime.getText();
+    }
+    @FindBy(xpath="//div[@class=\"col-md-12\"]/ul/li/a[not(descendant::i)]")
+    private WebElement tags;
+  public String getTags() {
+             return tags.getText();
     }
 
 

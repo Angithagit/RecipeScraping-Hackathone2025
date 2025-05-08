@@ -7,8 +7,10 @@ import org.openqa.selenium.WebDriver;
 
 import Commons.BrowserFactory;
 import PageFactory.CategoriesScrapper;
+import Tests.RecipeScrapper;
 import dto.CategoryInfo;
-import tests.RecipeScrapper;
+
+
 
 public class CategoryScrapper {
 	public static void main(String[] args) throws IOException, InterruptedException {
