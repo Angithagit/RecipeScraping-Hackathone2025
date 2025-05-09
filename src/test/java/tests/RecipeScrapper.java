@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import Commons.BrowserFactory;
@@ -22,7 +23,13 @@ import scrappers.FilterfoodRecipecategory;
 import scrappers.ScrappedDatas;
 import utils.DataBaseclass;
 
-public class RecipeScrapper extends BaseClass {
+
+public class RecipeScrapper {
+	
+	@BeforeClass
+	public void clearTablesBeforeTest() {
+		DataBaseclass.truncateAllTables();
+	}
 
 	@Test(priority = 1)
 	public static void recipeDataInfo() throws IOException, InterruptedException {
