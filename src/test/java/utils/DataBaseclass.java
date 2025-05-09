@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DataBaseclass {
 
@@ -37,4 +38,30 @@ public class DataBaseclass {
         String sql = "INSERT INTO " + tableName + " (recipe_name, food_category, recipe_category, ingredients, preparation_time, cooking_time, no_of_servings, recipe_description, recipe_method, nutrient_values, tags, recipe_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
         insert(sql,  recipename, foodcategory, recipecategory, ingredients, prep, cook, noOfServings, description, method, nutrientvalues, tags, url);
     }
+    public static void truncateAllTables() {
+        String[] tables = {
+            "Low_fat_diet_add",
+            "Low_fat_diet_elimination",
+            "Low_fat_diet_Non_Vegan",
+            "Low_Carb_High_fat_add",
+            "Low_Carb_High_fat_elimination",
+            "Milk_Allergy",
+            "Soy_Allergy",
+            "Egg_Allergy",
+            "Sesame_Allergy",
+            "Nuts_Allergy",
+            "Shell_Fish_Allergy",
+            "Seafood_Allergy"
+        };
+
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+            for (String table : tables) {
+                stmt.execute("TRUNCATE TABLE " + table + " RESTART IDENTITY CASCADE");
+            }
+            System.out.println("✅ All tables truncated successfully.");
+        } catch (SQLException e) {
+            System.out.println("❌ Error while truncating tables: " + e.getMessage());
+        }
+    }
+
 }
