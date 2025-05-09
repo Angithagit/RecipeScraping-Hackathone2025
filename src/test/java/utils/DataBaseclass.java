@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class DataBaseclass {
 
     private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/tarladalal", "postgres", "Sql@2025");
+        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/RecipeScrapper", "postgres", "NumpyNinja194");
     }
 
     private static void insert(String query, String  recipename,  String foodcategory, String recipecategory, String ingredients, String prep, String cook,
