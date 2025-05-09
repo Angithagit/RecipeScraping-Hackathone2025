@@ -14,6 +14,7 @@ import Commons.ConfigReader;
 import Commons.LoggerLoad;
 import PageFactory.RecipesScrapper;
 import PageFactory.ScrappedDatas_Test;
+import baseClass.BaseClass;
 import dto.RecipeUrlInfo;
 import scrappers.FilterAllergytables;
 import scrappers.FilterLowCarbRecipe;
@@ -21,6 +22,7 @@ import scrappers.FilterLowFatRecipe;
 import scrappers.FilterfoodRecipecategory;
 import scrappers.ScrappedDatas;
 import utils.DataBaseclass;
+
 
 public class RecipeScrapper {
 	
@@ -32,8 +34,7 @@ public class RecipeScrapper {
 	@Test(priority = 1)
 	public static void recipeDataInfo() throws IOException, InterruptedException {
 
-		BrowserFactory bf = new BrowserFactory();
-		bf.browsersetup("chrome");
+		
 		WebDriver driver = BrowserFactory.getdriverinstance();
 		ScrappedDatas SD = new ScrappedDatas(driver);
 		FilterLowFatRecipe lfdiet = new FilterLowFatRecipe();
