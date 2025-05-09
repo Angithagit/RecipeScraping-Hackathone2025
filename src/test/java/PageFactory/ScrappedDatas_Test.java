@@ -17,6 +17,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 import Commons.BrowserFactory;
+
 public class ScrappedDatas_Test {
 	//String URL = "https://www.tarladalal.com/";
 
@@ -181,6 +182,13 @@ private WebDriver driver;
   public String getTags() {
              return tags.getText();
     }
+
+  @FindBy(xpath = "//div[contains(@class,'box-time')][4]/div/p/strong")
+  private WebElement noofservings;
+  
+  public String getNoOfServings() {
+      return noofservings.getText();
+  }
 
 
 }
