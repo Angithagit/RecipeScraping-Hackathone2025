@@ -3,6 +3,7 @@ package scrappers;
 import java.io.IOException;
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -106,45 +107,80 @@ public class ScrappedDatas extends ScrappedDatas_Test {
 		}
 	}
 
-	public String recipie_nutrient_values(String url, WebDriver driver) throws InterruptedException, IOException {
-		String nutri_value = null;
+//	public String recipie_nutrient_values(String url, WebDriver driver) throws InterruptedException, IOException {
+//		String nutri_value = null;
+//
+//		driver.navigate().to(url);
+//		JavascriptExecutor js = (JavascriptExecutor) driver;
+//		js.executeScript("document.body.style.zoom='25%'");
+//		js.executeScript("window.scrollBy(0, 500)");
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		try {
+//			WebElement element = wait.until(ExpectedConditions.elementToBeClickable(nutrient_value_link));
+//			element.click();
+//			nutri_value = nutrient_value_details.getText();
+//			// Check if the description is not empty or null
+//			if (nutri_value != null && !nutri_value.isEmpty()) {
+//				System.out.println("Nutrient Value for element: " + nutri_value);
+//			} else {
+//				System.out.println("Nutrient Value :NULL");
+//			}
+//			return nutri_value;
+//			// nutrient_value_link.click();
+//		} catch (Exception e1) {
+//			// If the first element is not clickable, try the second one
+//			try {
+//				WebElement element2 = wait.until(ExpectedConditions.elementToBeClickable(nutrient_value_link2));
+//				element2.click(); // Click the second element
+//
+//			} catch (Exception e2) {
+//				System.out.println("Nutrient Value1 : NULL");
+//			}
+//			nutri_value = nutrient_value_details.getText();
+//			// Check if the description is not empty or null
+//			if (nutri_value != null && !nutri_value.isEmpty()) {
+//				System.out.println("Nutrient Value for element: " + nutri_value);
+//			} else {
+//				System.out.println("Nutrient Value :NULL");
+//			}
+//			return nutri_value;
+//		}
+//
+//	}
+	public String recipie_nutrient_values(String url, WebDriver driver) throws InterruptedException {
+	    String nutri_value = null;
 
-		driver.navigate().to(url);
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("document.body.style.zoom='25%'");
-		js.executeScript("window.scrollBy(0, 500)");
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		try {
-			WebElement element = wait.until(ExpectedConditions.elementToBeClickable(nutrient_value_link));
-			element.click();
-			nutri_value = nutrient_value_details.getText();
-			// Check if the description is not empty or null
-			if (nutri_value != null && !nutri_value.isEmpty()) {
-				System.out.println("Nutrient Value for element: " + nutri_value);
-			} else {
-				System.out.println("Nutrient Value :NULL");
-			}
-			return nutri_value;
-			// nutrient_value_link.click();
-		} catch (Exception e1) {
-			// If the first element is not clickable, try the second one
-			try {
-				WebElement element2 = wait.until(ExpectedConditions.elementToBeClickable(nutrient_value_link2));
-				element2.click(); // Click the second element
+	    driver.navigate().to(url);
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    js.executeScript("document.body.style.zoom='25%'");
+	    js.executeScript("window.scrollBy(0, 500)");
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-			} catch (Exception e2) {
-				System.out.println("Nutrient Value1 : NULL");
-			}
-			nutri_value = nutrient_value_details.getText();
-			// Check if the description is not empty or null
-			if (nutri_value != null && !nutri_value.isEmpty()) {
-				System.out.println("Nutrient Value for element: " + nutri_value);
-			} else {
-				System.out.println("Nutrient Value :NULL");
-			}
-			return nutri_value;
-		}
+	    try {
+	        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(nutrient_value_link));
+	        element.click();
+	    } catch (Exception e1) {
+	        try {
+	            WebElement element2 = wait.until(ExpectedConditions.elementToBeClickable(nutrient_value_link2));
+	            element2.click();
+	        } catch (Exception e2) {
+	            System.out.println("❌ Both nutrient links not found or clickable.");
+	            return "NULL";
+	        }
+	    }
 
+	    // Wait and check for the nutrient value element
+	    try {
+	        WebElement nutrientElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("rcpnuts")));
+	        nutri_value = nutrientElement.getText();
+	        System.out.println("✅ Nutrient Value: " + nutri_value);
+	    } catch (Exception e) {
+	        System.out.println("⚠️ Nutrient Value Element Not Found.");
+	        return "NULL";
+	    }
+
+	    return nutri_value;
 	}
+
 
 }
