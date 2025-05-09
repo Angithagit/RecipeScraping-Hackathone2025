@@ -7,14 +7,11 @@ import org.openqa.selenium.WebDriver;
 
 import Commons.BrowserFactory;
 import PageFactory.CategoriesScrapper;
-import Tests.RecipeScrapper;
 import dto.CategoryInfo;
 
-
-
 public class CategoryScrapper {
-	public static void main(String[] args) throws IOException, InterruptedException {
 		// CsvWriterUtil.initialize("recipes.csv");
+	public void categoryDataInfo() throws IOException {
 		BrowserFactory bf = new BrowserFactory();
 		bf.browsersetup("chrome");
 
@@ -36,9 +33,9 @@ public class CategoryScrapper {
 			System.out.println("Recipe Count  : " + info.getRecipeCount());
 			System.out.println("-------------------------------------------");
 			
-			RecipeScrapper.recipeDataInfo(categoryId, info.getUrl());
 		}
 		// CsvWriterUtil.close();
-		driver.quit();
-	}
+//		driver.quit();
+	
+}
 }
