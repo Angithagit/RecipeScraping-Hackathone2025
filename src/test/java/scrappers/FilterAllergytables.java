@@ -13,6 +13,7 @@ public class FilterAllergytables {
 	
 	public ArrayList<String> allergylist(String ingredients) throws IOException {
 		ExcelReader er = new ExcelReader();
+		allergycontents.clear();
 		String sheetname = "Allergies";
 		String allergyitem;
 		int i,j;
@@ -22,6 +23,7 @@ public class FilterAllergytables {
 		for(i=1;i<=totalcheckitems;i++) 
 		{
 			allergyitem = er.readexcelvalue(i,0,sheetname);
+			
 				if(ingredients.contains(allergyitem))
 					allergycontents.add(allergyitem);
 			}
