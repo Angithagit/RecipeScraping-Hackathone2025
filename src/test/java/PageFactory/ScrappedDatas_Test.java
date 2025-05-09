@@ -15,10 +15,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
+import Commons.BrowserFactory;
 public class ScrappedDatas_Test {
 	//String URL = "https://www.tarladalal.com/";
 
-    public static WebDriver driver;
+private WebDriver driver;
+	
+	public ScrappedDatas_Test(WebDriver driver) {
+		this.driver = BrowserFactory.getdriverinstance();
+		PageFactory.initElements(driver, this);
+	}
 
 	 
     // Use Page Factory to locate elements

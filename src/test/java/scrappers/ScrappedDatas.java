@@ -15,6 +15,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import PageFactory.ScrappedDatas_Test;
 
 public class ScrappedDatas extends ScrappedDatas_Test {
+	
+	public ScrappedDatas(WebDriver driver) {
+		super(driver);
+		
+	}
+
 
 	public String recipie_method(String url, WebDriver driver) throws InterruptedException, IOException {
 		String method = null;

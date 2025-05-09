@@ -1,4 +1,4 @@
-package tests;
+package Tests;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,11 +29,13 @@ public class RecipeScrapper {
 		BrowserFactory bf = new BrowserFactory();
 		bf.browsersetup("chrome");
 		WebDriver driver = BrowserFactory.getdriverinstance();
-		ScrappedDatas SD = new ScrappedDatas();
+		ScrappedDatas SD = new ScrappedDatas(driver);
 		FilterLowFatRecipe lfdiet = new FilterLowFatRecipe();
 		FilterLowCarbRecipe lcdiet = new FilterLowCarbRecipe();
 		FilterAllergytables allergy = new FilterAllergytables();
-		ScrappedDatas_Test scdata = new ScrappedDatas_Test();
+		ScrappedDatas_Test scdata = new ScrappedDatas_Test(driver);
+
+
 
 		driver.get(ConfigReader.indianRecipeUrl());
 
@@ -48,13 +50,16 @@ public class RecipeScrapper {
 			String recipie_nutrient_values = SD.recipie_nutrient_values(value, driver);
 			List<String> liststringingredients = scdata.getIngredients();
 			String ingredients = String.join(", ", liststringingredients).toLowerCase();
-
+			System.out.println(ingredients);
+			
 			String LFtablename = lfdiet.recipecheckLowFatdiet(ingredients, recipiemethod);
+			System.out.println(LFtablename);
 			LoggerLoad.info("TABLE NAME: " + LFtablename);
 			// Make a call to the appropriate class.method() to connect to postgresql and
 			// insert into above said Low fat table
 
 			String LCtablename = lcdiet.recipecheckLowCarbdiet(ingredients, recipiemethod);
+			System.out.println(LCtablename);
 			LoggerLoad.info("TABLE NAME: " + LCtablename);
 			// Make a call to the appropriate class.method() to connect to postgresql and
 			// insert into above said Low carbs table
@@ -65,7 +70,9 @@ public class RecipeScrapper {
 					LoggerLoad.info("TABLE NAME: " + allergytable);
 					// Make a call to the appropriate class.method() to connect to postgresql and
 					// insert into above said allergy table
+					System.out.println(allergytable);
 				}
+				
 				// CsvWriterUtil.writeRow(categoryId, info.getUrl(), recipeId,
 				// info.getRecipeName(), info.getUrl());
 			}
